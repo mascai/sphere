@@ -5,6 +5,20 @@ from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import User
 from django.conf import settings
+from django.contrib.auth.models import User
+
+
+class UserProfile(models.Model):
+    # Эта строка обязательна. Она связывает UserProfile с экземпляром модели User.
+    user = models.OneToOneField(User)
+
+    # Дополнительные атрибуты, которые мы хотим добавить.
+    website = models.URLField(blank=True)
+    picture = models.ImageField(upload_to='profile_images', blank=True)
+
+    # Переопределяем метод __unicode__(), чтобы вернуть что-либо значимое! Используйте __str__() в Python 3.*
+    def __unicode__(self):
+        return self.user.username
 
 class Club(models.Model):
     title = models.CharField(max_length=50, db_index=True, default='Club') #name of the club

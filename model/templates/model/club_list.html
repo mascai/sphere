@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <title>SamboHub</title>
+    </head>
+    <body>
+    <div>
+    	<h1>Список клубов: </h1>
+    </div>
+    {% for post in posts %}
+        <div>
+            <h1><a href="/model/club_list/" + unicode({{ post.title }})>{{ post.title }}</a></h1>
+            <p>{{ post.addr }}</p>
+            <p>{{ post.phone_number}}
+            <p>published: {{ post.published_date }}</p>
+        </div>
+    {% endfor %}
+    </body>
+</html>
+

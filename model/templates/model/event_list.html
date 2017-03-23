@@ -1,0 +1,18 @@
+<html>
+    <head>
+        <title>SamboHub</title>
+    </head>
+    <body>
+    <div>
+    	<h1>Список соревнований: </h1>
+    </div>
+    {% for event in events %}
+        <div>
+            <h1><a href="">{{ event.title }}</a></h1>
+            <p>Время проведения: {{ event.event_date }}</p>
+            <p>Место проведения: {{ event.club }}</p>
+        </div>
+    {% endfor %}
+    </body>
+</html>
+
