@@ -1,0 +1,11 @@
+{% extends "index.html" %}
+{% block application %}
+        <div>
+            <h1><a href="/model/club_list/">{{ post.title }}</a></h1>
+            <p><b>Адрес</b>: {{ post.addr }}</p>
+            <p>Тел: {{ post.phone_number}}
+            <p>Тренер: {{ post.coach_name}}
+            <p>О клубе: {{ post.text}}
+
+        </div>
+{% endblock %}

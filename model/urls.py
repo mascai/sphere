@@ -8,6 +8,8 @@ urlpatterns = [
     url(r'^model/logout/$', views.user_logout, name='logout'),
     url(r'^model/club_list/$', views.club_list, name='club_list'),
     url(r'^model/event_list/$', views.event_list, name='event_list'),
+    url(r'^(?P<club_id>\d+)/$', views.club_detail, name='post'),
+
 
     #url(r'^model/club/$', views.user_logout, name='logout'),
 

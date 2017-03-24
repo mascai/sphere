@@ -1,8 +1,6 @@
-<html>
-        <head>
-            <title>SamboHub</title>
-        </head>
-        <body>
+{% extends "index.html" %}
+
+{% block application %}
             <div>
                 <h1><a href="/model/register/">Register Here</a></h1>
                 <h1><a href="/model/login/">Login</a></h1>
@@ -26,5 +24,4 @@
 <a href="/model/register/">Register Here</a><br />
 <a href="/model/login/">Login</a><br />
 {% endif %}
-        </body>
-    </html>
+{% endblock %}

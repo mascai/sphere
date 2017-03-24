@@ -12,7 +12,7 @@ class UserProfile(models.Model):
     # Эта строка обязательна. Она связывает UserProfile с экземпляром модели User.
     user = models.OneToOneField(User)
 
-    # Дополнительные атрибуты, которые мы хотим добавить.
+    # Дополнительные атрибуты, которые хотим добавить.
     website = models.URLField(blank=True)
     picture = models.ImageField(upload_to='profile_images', blank=True)
 
@@ -25,6 +25,7 @@ class Club(models.Model):
     addr = models.CharField(max_length=140, default='Москва')
     phone_number =  models.CharField(max_length=50, default='8-499-111-11-11')
     text = models.TextField(default='Информация о клубе') # text about the club
+    coach_name = models.CharField(max_length=50, default='Харлампиев')
     created_date = models.DateTimeField(
             default=timezone.now)
     published_date = models.DateTimeField(blank=True, null=True)

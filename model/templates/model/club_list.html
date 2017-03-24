@@ -1,3 +1,18 @@
+{% extends "index.html" %}
+
+{% block application %}
+{% for post in posts %}
+        <div>
+            <h1><a href="{% url 'post' club_id=post.id %}">{{ post.title }}</a></h1>
+            <p>{{ post.addr }}</p>
+            <p>{{ post.phone_number}}
+            <p>published: {{ post.published_date }}</p>
+        </div>
+    {% endfor %}
+{% endblock %}
+
+
+<!--
 <html>
     <head>
         <title>SamboHub</title>
@@ -17,3 +32,4 @@
     </body>
 </html>
 
+-->

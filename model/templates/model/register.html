@@ -1,17 +1,12 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Rango</title>
-    </head>
+{% extends "index.html" %}
 
-    <body>
-        <h1>Регистрация SamboHub</h1>
+{% block application %}
 
         {% if registered %}
-        Rango says: <strong>thank you for registering!</strong>
+        System says: <strong>thank you for registering!</strong>
         <a href="http://127.0.0.1:8000/">Return to the homepage.</a><br />
         {% else %}
-        Rango says: <strong>register here!</strong><br />
+        System says: <strong>register here!</strong><br />
 
         <form id="user_form" method="post" action="/model/register/"
                 enctype="multipart/form-data">{% csrf_token %}
@@ -24,5 +19,4 @@
             <input type="submit" name="submit" value="Register" />
         </form>
         {% endif %}
-    </body>
-</html>
+{% endblock %}

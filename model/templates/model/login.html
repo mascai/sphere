@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <!-- Никому не надоело каждый раз вводить заголовок??? -->
-        <title>SamboHub</title>
-    </head>
+{% extends "index.html" %}
 
-    <body>
+{% block application %}
         <h1>Login to SamboHub</h1>
 
 
@@ -15,8 +10,6 @@
             Password: <input type="password" name="password" value="" size="50" />
             <br />
 
-            <input type="submit" value="submit" />
+            <input type="submit" value="LoginButton" />
         </form>
-
-    </body>
-</html>
+{% endblock %}
