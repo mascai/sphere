@@ -6,6 +6,30 @@
             <p>Тел: {{ post.phone_number}}
             <p>Тренер: {{ post.coach_name}}
             <p>О клубе: {{ post.text}}
-
         </div>
+
+        <div>
+
+        	<h1> Comments: </h1>
+        	
+        </div>
+
+        <form method="post">
+        {% csrf_token %}
+        {% for field in form %}
+            <div>
+               {{field.label}} {{field}}
+            </div>
+        {% endfor %}
+        <input type="submit" value="отправить"/>
+        </form>
+
+
+        {% for comment in comments%}
+        <div>
+            <p>{{ comment.text }}</p>
+        </div>
+        {% endfor %}
+
+
 {% endblock %}

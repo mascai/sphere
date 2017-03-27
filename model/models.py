@@ -45,6 +45,7 @@ class Comment(models.Model):
         blank = True,
         null = True
     )
+    title = models.CharField(max_length=200, blank=True, null=True)
     text = models.CharField(max_length=200, default = 'Введите свой текст - комментарий') # comment text
     created_date = models.DateTimeField(
             default=timezone.now)

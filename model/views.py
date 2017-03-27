@@ -1,13 +1,16 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
-from .models import Club, Event
-from model.forms import UserForm, UserProfileForm
+from .models import Club, Event, Comment
+from model.forms import UserForm, UserProfileForm, CommentForm
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 
+#def comment_new(request):
+#        form = CommentForm()
+#        return render(request, 'model/comment_edit.html', {'form': form})
 
 def post_list(request):
     posts = Club.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
@@ -24,7 +27,22 @@ def event_list(request):
 
 def club_detail(request, club_id):
     post = get_object_or_404(Club, id=club_id) #если объект найден, то вернет id в перем house
-    return render(request, "model/club_detail.html", {'post': post })
+    form = CommentForm(request.POST or None, initial={
+        "post": post
+    })
+    #comments = Comment.objects.get(post.title)
+    comments = Comment.objects.select_related().filter(club = club_id)
+    if request.method == 'POST':
+        #form = CommentForm(request.POST)
+        if form.is_valid():
+            #form = form.save(commit=False)
+            form.author = request.user
+            form.published_date = timezone.now()
+            form.save()
+            form = CommentForm()
+    else:
+        form = CommentForm()
+    return render(request, "model/club_detail.html", {'post': post, 'form': form, 'comments': comments })
 
 
 
