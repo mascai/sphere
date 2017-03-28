@@ -1,5 +1,6 @@
 from django.conf.urls import url
 from . import views
+#from model.views import add_like
 
 urlpatterns = [
     url(r'^$', views.post_list, name='post_list'),
@@ -9,6 +10,7 @@ urlpatterns = [
     url(r'^model/club_list/$', views.club_list, name='club_list'),
     url(r'^model/event_list/$', views.event_list, name='event_list'),
     url(r'^(?P<club_id>\d+)/$', views.club_detail, name='post'),
+    #url(r'^(?P<slug>S+)/addlike/$', add_like, name='add_like'), #slug - from view.py
 
 
     #url(r'^model/club/$', views.user_logout, name='logout'),

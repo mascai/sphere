@@ -34,6 +34,7 @@ class Club(models.Model):
         self.save()
     def __unicode__(self):
        return self.title
+    likes = models.IntegerField(verbose_name='Нравится людям', default=0)
     
         
 class Comment(models.Model):

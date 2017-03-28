@@ -1,7 +1,10 @@
 {% extends "index.html" %}
-
 {% block application %}
-{% for post in posts %}
+    <form action="" method="get">
+        {{form.as_p}}   
+        <input type="submit" name="Find">
+    </form>
+    {% for post in posts %}
         <div>
             <h1><a href="{% url 'post' club_id=post.id %}">{{ post.title }}</a></h1>
             <p>{{ post.addr }}</p>

@@ -8,10 +8,10 @@
             <p>О клубе: {{ post.text}}
         </div>
 
-        <div>
 
+
+        <div>
         	<h1> Comments: </h1>
-        	
         </div>
 
         <form method="post">
@@ -27,9 +27,13 @@
 
         {% for comment in comments%}
         <div>
-            <p>{{ comment.text }}</p>
+            <p>{{ comment.author }}</p>
+            <b><p>{{ comment.title}}</p></b>
+            <p>{{ comment.text }}</p>    
         </div>
         {% endfor %}
+
+
 
 
 {% endblock %}
