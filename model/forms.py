@@ -2,17 +2,22 @@
 
 from django import forms
 from django.contrib.auth.models import User
-from model.models import Club, UserProfile, Comment
+from model.models import Club, UserProfile, Comment, Like
 from django.utils import timezone
 
+class LikeForm(forms.Form):
+    model = Like
+        
 
 class ClubFilterForm(forms.Form):
-	club_title = forms.CharField(label="Место проведения", required=False)
+	club_title = forms.CharField(label="Название", required=False)
 
 class EventFilterForm(forms.Form):
 	event_title = forms.CharField(label="Место проведения", required=False)
 
 class CommentForm(forms.ModelForm):
+    #club = forms.CharField(widget=forms.HiddenInput)
+    #club = forms.ModelChoiceField(queryset=Comment.objects.all(), widget=forms.HiddenInput)
     class Meta:
         model = Comment	
         fields = ('club', 'title', 'text')

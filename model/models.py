@@ -24,6 +24,7 @@ class Club(models.Model):
     title = models.CharField(max_length=50, db_index=True, default='Club') #name of the club
     addr = models.CharField(max_length=140, default='Москва')
     phone_number =  models.CharField(max_length=50, default='8-499-111-11-11')
+    club_logo = models.ImageField(upload_to="clubs/photos", default='', blank=True)
     text = models.TextField(default='Информация о клубе') # text about the club
     coach_name = models.CharField(max_length=50, default='Харлампиев')
     created_date = models.DateTimeField(

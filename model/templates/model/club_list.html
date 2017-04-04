@@ -5,12 +5,14 @@
         <input type="submit" name="Find">
     </form>
     {% for post in posts %}
-        <div>
+        <div class="post">
             <h1><a href="{% url 'post' club_id=post.id %}">{{ post.title }}</a></h1>
             <p>{{ post.addr }}</p>
-            <p>{{ post.phone_number}}
+            <p>{{ post.phone_number}}</p>
+            <p>Количество коммнтариев: {{ post.cnt_comments}}</p>
             <p>published: {{ post.published_date }}</p>
         </div>
+        <hr> 
     {% endfor %}
 {% endblock %}
 

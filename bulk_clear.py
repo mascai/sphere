@@ -9,8 +9,9 @@ if __name__ == "__main__":
 import django
 django.setup()
 
-from model.models import Club, Comment
+from model.models import Club, Comment, Like
 from django.utils import timezone
 
 #Comment.objects.filter(author='Пользователь').delete()
 Club.objects.filter(addr='Москва').delete()
+Like.objects.all().delete()

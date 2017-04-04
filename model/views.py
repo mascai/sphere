@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from .models import Club, Event, Comment
 from model.forms import UserForm, UserProfileForm, CommentForm, EventFilterForm, ClubFilterForm
@@ -7,7 +7,7 @@ from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
-
+from django.db.models import Count
 
 
 
@@ -18,10 +18,13 @@ def post_list(request):
 
 #вывод списка клубов
 def club_list(request):
-    posts = Club.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+    posts = Club.objects.filter(published_date__lte=timezone.now()).order_by('published_date').annotate(cnt_comments=Count('comment'))
+    #club_comment_cnt = Club.objects.annotate(cnt_comments=Count('comment'))
+    #club_comment_cnt[0].cnt_comments
     form = ClubFilterForm(request.GET)
     if form.is_valid():
         if form.cleaned_data["club_title"]:
+            #posts = posts.filter(title=form.cleaned_data["club_title"])
             posts = posts.filter(title=form.cleaned_data["club_title"])
     return render(request, 'model/club_list.html', {'posts': posts, 'form': form})
 #вывод списка соревнований
@@ -35,21 +38,27 @@ def event_list(request):
 
 def club_detail(request, club_id):
     post = get_object_or_404(Club, id=club_id) #если объект найден, то вернет id в перем post
-    form = CommentForm(request.POST or None, initial={
-        "club": post #default club name in form
-    })
+    
     #comments = Comment.objects.get(post.title)
-    comments = Comment.objects.select_related().filter(club=club_id)
+    comments = Comment.objects.select_related("author").filter(club=club_id)
     if request.method == 'POST':
         #form = CommentForm(request.POST)
+        form = CommentForm(request.POST or None, initial={
+        "club": post #default club name in form
+        })
+        #form.author = request.user
         if form.is_valid():
             #form = form.save(commit=False)
-            form.author = request.user
+            form.instance.author = request.user
+            #form.author = request.user
             form.published_date = timezone.now()
             form.save()
-            form = CommentForm()
+            return redirect("http://127.0.0.1:8000/"+unicode(club_id))
+            #form = CommentForm()
     else:
-        form = CommentForm()
+        form = CommentForm(initial={
+        "club": post #default club name in form
+        })
     return render(request, "model/club_detail.html", {'post': post, 'form': form, 'comments': comments })
 
 

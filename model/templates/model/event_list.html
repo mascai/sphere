@@ -6,11 +6,18 @@
         {{form.as_p}}	
         <input type="submit" name="Find">
     </form>
-    {% for event in events %}
-        <div>
-            <h1><a href="">{{ event.title }}</a></h1>
-            <p>Время проведения: {{ event.event_date }}</p>
-            <p>Место проведения: {{ event.club }}</p>
-        </div>
-    {% endfor %}
+
+    <div class="content container">
+        <div class="row">
+            <div class="col-md-8">
+			    {% for event in events %}
+			        <div class="post">
+			            <h1><a href="">{{ event.title }}</a></h1>
+			            <p>Время проведения: {{ event.event_date }}</p>
+			            <p>Место проведения: {{ event.club }}</p>
+			        </div>
+			    {% endfor %}
+		    </div>
+	    </div>
+    </div>
 {% endblock %}

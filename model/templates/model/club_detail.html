@@ -1,6 +1,9 @@
 {% extends "index.html" %}
 {% block application %}
         <div>
+            {% if post.club_logo%}
+                <img src="{{ post.club_logo.url }}" alt="post.title">
+            {% endif %}
             <h1><a href="/model/club_list/">{{ post.title }}</a></h1>
             <p><b>Адрес</b>: {{ post.addr }}</p>
             <p>Тел: {{ post.phone_number}}
@@ -8,6 +11,14 @@
             <p>О клубе: {{ post.text}}
         </div>
 
+
+        <div>
+        	<h1> Likes: </h1>
+        </div>
+        <form action="#" method="post">
+			{% csrf_token %}
+			<input type="submit" class="btn" value="Мне нравится" name="mybtn">  {{ post.likes }}
+		</form>
 
 
         <div>
@@ -26,8 +37,8 @@
 
 
         {% for comment in comments%}
-        <div>
-            <p>{{ comment.author }}</p>
+        <div class="comment">
+           <h1> <p>{{ comment.author }}</p> </h1>
             <b><p>{{ comment.title}}</p></b>
             <p>{{ comment.text }}</p>    
         </div>
