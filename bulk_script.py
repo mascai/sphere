@@ -25,15 +25,14 @@ from django.conf import settings
 try:
     AMOUNT = int(sys.argv[1])
 except:
-    AMOUNT = 100000
-
+    AMOUNT = 10
 def create_random_Club():
     data = []
     for i in range(1, AMOUNT+1):
         data.append({
             'id': i, #не желательно
-            #'title':  'scriptClub' + unicode(i)
-            'title': 'Sambo ' + unicode(random.randint(1920, 2017))
+            'title':  'scriptClub' + unicode(i)
+            #'title': 'Sambo ' + unicode(random.randint(1920, 2017))
             #'text': 'Club random text' 
             })
 
@@ -52,7 +51,9 @@ def set_Data():
     like_arr = []
     i = 1
     for q in objs:
-        comm_arr.append(Comment(club = q, text = unicode(i) + 'qweqw'))
+        j = random.randint(0, 10)
+        for z in range(j):
+            comm_arr.append(Comment(club = q, published_date=timezone.now(), text = unicode(i) + 'qweqw'))
         event_arr.append(Event(club = q, title = 'Event ' + unicode(i)))
         imag_arr.append(Image(club = q, title = 'Imag ' + unicode(i)))
         like_arr.append(Like())

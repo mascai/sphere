@@ -1,6 +1,9 @@
 {% extends "index.html" %}
 {% block application %}
-        <div>
+
+
+<div class="container_comment">
+        <div class="club" >
             {% if post.club_logo%}
                 <img src="{{ post.club_logo.url }}" alt="post.title">
             {% endif %}
@@ -12,27 +15,20 @@
         </div>
 
 
-        <div>
-        	<h1> Likes: </h1>
-        </div>
-        <form action="#" method="post">
-			{% csrf_token %}
-			<input type="submit" class="btn" value="Мне нравится" name="mybtn">  {{ post.likes }}
-		</form>
-
-
-        <div>
+        <div class="comment" >
         	<h1> Comments: </h1>
-        </div>
+        
 
         <form method="post">
         {% csrf_token %}
         {% for field in form %}
             <div>
-               {{field.label}} {{field}}
+               {{field.label}} <br \>
+               {{field}}
             </div>
         {% endfor %}
-        <input type="submit" value="отправить"/>
+        <br \>
+        <input type="submit" class="btn btn-primary" value="Send" />
         </form>
 
 
@@ -43,7 +39,8 @@
             <p>{{ comment.text }}</p>    
         </div>
         {% endfor %}
-
+        </div>
+</div>
 
 
 

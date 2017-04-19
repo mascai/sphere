@@ -29,7 +29,7 @@ class Club(models.Model):
     coach_name = models.CharField(max_length=50, default='Харлампиев')
     created_date = models.DateTimeField(
             default=timezone.now)
-    published_date = models.DateTimeField(blank=True, null=True)
+    published_date = models.DateTimeField(blank=True, null=True, db_index=True)
     def publish(self):
         self.published_date = timezone.now()
         self.save()
@@ -48,7 +48,7 @@ class Comment(models.Model):
         null = True
     )
     title = models.CharField(max_length=200, blank=True, null=True)
-    text = models.CharField(max_length=200, default = 'Введите свой текст - комментарий') # comment text
+    text = models.TextField(default = 'Введите свой текст - комментарий') # comment text
     created_date = models.DateTimeField(
             default=timezone.now)
     published_date = models.DateTimeField(

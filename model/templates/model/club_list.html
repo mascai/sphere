@@ -1,19 +1,43 @@
 {% extends "index.html" %}
 {% block application %}
+<style>
+table {
+    border-collapse: collapse;
+    width: 100%;
+    padding-bottom: 100px;
+}
+
+th, td {
+    text-align: left;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+
+</style>
+
     <form action="" method="get">
         {{form.as_p}}   
-        <input type="submit" name="Find">
+        <!--<input type="submit" name="Find"> -->
     </form>
+    <br \>
+    <table>
+    <tr>
+        <th> Название </th>
+        <th> Город </th>
+        <th> Телефон </th>
+        <th> <p>Число</p> комментариев </th>
+    </tr>
     {% for post in posts %}
-        <div class="post">
-            <h1><a href="{% url 'post' club_id=post.id %}">{{ post.title }}</a></h1>
-            <p>{{ post.addr }}</p>
-            <p>{{ post.phone_number}}</p>
-            <p>Количество коммнтариев: {{ post.cnt_comments}}</p>
-            <p>published: {{ post.published_date }}</p>
-        </div>
-        <hr> 
+            
+            <th><a href="{% url 'post' club_id=post.id %}">{{ post.title }}</a></th>
+            <th>{{ post.addr }}</th>
+            <th>{{ post.phone_number}}</th>
+            <th> <span class="badge">{{ post.cnt_comments}}</span></th>
+            
+        </tr>
     {% endfor %}
+    </table>
 {% endblock %}
 
 

@@ -6,17 +6,22 @@
         System says: <strong>thank you for registering!</strong>
         <a href="http://127.0.0.1:8000/">Return to the homepage.</a><br />
         {% else %}
-        System says: <strong>register here!</strong><br />
+
 
         <form id="user_form" method="post" action="/model/register/"
                 enctype="multipart/form-data">{% csrf_token %}
 
-            <!-- Выводим на экран каждую форму. Метод as_p помещает каждый элемент в абзац (тег <p>). Это гарантирует, что каждый элемент появится на новой строке, улучшая внешний вид формы. -->
-            {{ user_form.as_p }}
-            {{ profile_form.as_p }}
+            <!-- Выводим на экран каждую форму. -->
+            <!--{% for field in user_form %}
+                <div>
+                    <h2><label class="control-label">{{ field.label}}</label></h2>
+                 <input type="text">  {{ field.label}} value="" aria-required="true" />
+            {% endfor %}
+            -->
 
-            <!-- Создаем кнопку для отправления данных формы. -->
-            <input type="submit" name="submit" value="Register" />
+            {{ user_form.as_p}}
+            {{profile_form.as_p }}
+            <input type="submit" class="btn btn-primary" name="submit" value="Register" />
         </form>
         {% endif %}
 {% endblock %}

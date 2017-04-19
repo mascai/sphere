@@ -1,15 +1,30 @@
 {% extends "index.html" %}
 
 {% block application %}
-        <h1>Login to SamboHub</h1>
+	<style>
+		h1 {
+			color: blue;
+			text-align: center; 
+		}
+	</style>
+        <h1 >Login</h1><br />
+ 
 
-
-        <form id="login_form" method="post" action="/model/login/">{% csrf_token %}
-            Username: <input type="text" name="username" value="" size="50" />
+        <form id="login_form" method="post" action="/model/login/">{% csrf_token %} 
+            <h2><label class="control-label">Username</label></h2>
+            <input type="text" id="loginform-usernameoremail" class="form-control" name="username" value="" aria-required="true" />
+            
+            <h2><label class="control-label">Password</label></h2>
+            <input type="password" id="loginform-usernameoremail" class="form-control" name="password" value="" size="50" aria-required="true" />
             <br />
-            Password: <input type="password" name="password" value="" size="50" />
-            <br />
 
-            <input type="submit" value="LoginButton" />
+            <input type="submit" class="btn btn-primary" value="Войти" />
         </form>
+
+        <!--<div class="form-group">
+                    <button type="submit" class="btn btn-primary" name="login-button">Войти</button>                </div>
+                    -->
+
+
+
 {% endblock %}

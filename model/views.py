@@ -8,6 +8,8 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from django.db.models import Count
+from django.contrib.auth.decorators import login_required
+
 
 
 
@@ -18,14 +20,14 @@ def post_list(request):
 
 #вывод списка клубов
 def club_list(request):
-    posts = Club.objects.filter(published_date__lte=timezone.now()).order_by('published_date').annotate(cnt_comments=Count('comment'))
+    posts = Club.objects.filter(created_date__lte=timezone.now()).order_by('published_date').annotate(cnt_comments=Count('comment'))
     #club_comment_cnt = Club.objects.annotate(cnt_comments=Count('comment'))
     #club_comment_cnt[0].cnt_comments
     form = ClubFilterForm(request.GET)
     if form.is_valid():
         if form.cleaned_data["club_title"]:
-            #posts = posts.filter(title=form.cleaned_data["club_title"])
-            posts = posts.filter(title=form.cleaned_data["club_title"])
+            posts = posts.filter(title__contains=form.cleaned_data["club_title"])
+            
     return render(request, 'model/club_list.html', {'posts': posts, 'form': form})
 #вывод списка соревнований
 def event_list(request):
@@ -35,7 +37,6 @@ def event_list(request):
         if form.cleaned_data["event_title"]:
             events = events.filter(title=form.cleaned_data["event_title"])
     return render(request, 'model/event_list.html', {'events': events, 'form': form })
-
 def club_detail(request, club_id):
     post = get_object_or_404(Club, id=club_id) #если объект найден, то вернет id в перем post
     
@@ -60,6 +61,7 @@ def club_detail(request, club_id):
         "club": post #default club name in form
         })
     return render(request, "model/club_detail.html", {'post': post, 'form': form, 'comments': comments })
+
 
 
 

@@ -10,7 +10,7 @@ class LikeForm(forms.Form):
         
 
 class ClubFilterForm(forms.Form):
-	club_title = forms.CharField(label="Название", required=False)
+	club_title = forms.CharField(label="Поиск по названию", required=False)
 
 class EventFilterForm(forms.Form):
 	event_title = forms.CharField(label="Место проведения", required=False)

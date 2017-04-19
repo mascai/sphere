@@ -1,9 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html>{% load staticfiles %}
+<html lang="ru">
 <head>
-  <title>Bootstrap Case</title>
+  <title>Isambo</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/alex.css' %}" />
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="{% static 'js/jquery-1.11.1.js' %}"></script>
+  <script src="{% static 'js/rango-jquery.js' %}"></script>
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.7/css/bootstrap-theme.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -18,7 +25,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-      <a class="navbar-brand" href="/">SamboHub</a>
+      <a class="navbar-brand" href="/">Isambo</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
@@ -38,22 +45,35 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#"><span> {% if user.is_authenticated %} Hello:{{ user.username }} 
-                {% else %}
-                <h1>hello world!</h1>
+                {% else %} 
+                hello guest!
                 </span>
             {% endif %} </a></li>
         <li><a href="/model/register/"><span class="glyphicon glyphicon-user"></span> Registration</a></li>
+        {% if user.is_authenticated == 0 %}
         <li><a href="/model/login/"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        {% else %} <li><a href="/model/logout/"><span class="glyphicon glyphicon-log-in"></span>Logout</a></li>
+        {% endif %}
       </ul>
     </div>
   </div>
 </nav>
+
+
   
 <div class="container">
   {% block application %}
 
   {% endblock %}
 </div>
+ 
 
+ <br \>
+ <footer class="footer" >
+        <div class="container">
+        <p class="pull-left">&copy; Техносфера@mail.ru 2017</p>
+        <p class="pull-right">Разработка сайта: Москаленко Алексей</p>
+                </div>
+    </footer>
 </body>
 </html>
