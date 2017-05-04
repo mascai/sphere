@@ -12,10 +12,28 @@
             <p>Тел: {{ post.phone_number}}
             <p>Тренер: {{ post.coach_name}}
             <p>О клубе: {{ post.text}}
+
+            <div id="like_count">
+                
+                <strong id="like_count">{{ post.likes }}</strong> people like this category
+
+                {% if user.is_authenticated %}
+                        <button id="likes" data-catid="{{post.id}}" class="btn btn-primary" type="button">
+                        <span class="glyphicon glyphicon-thumbs-up"></span>
+                        Like
+                        </button>
+                {% endif %}
+            </div>
         </div>
 
 
         <div class="comment" >
+        <a class="btn btn-primary btn-block" id="about-btn" data-id="{{post.id}} href="#">Лайкнуть</a>
+        <span class="rating">
+            <span class="rating-plus" data-id="{{post.id}}">+</span>
+            <span class="rating-value" data-id="{{post.id}}">{{ post.likes }}</span>
+            <span class="rating-minus" data-id="{{post.id}}">&minus;</span>
+        </span>
         	<h1> Comments: </h1>
         
 

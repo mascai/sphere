@@ -2,17 +2,67 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from .models import Club, Event, Comment
-from model.forms import UserForm, UserProfileForm, CommentForm, EventFilterForm, ClubFilterForm
+from model.forms import UserForm, UserProfileForm, CommentForm, EventFilterForm, ClubFilterForm, RegisterForm
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from django.db.models import Count
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
+from django.views.generic.edit import CreateView
+from django.http import JsonResponse
+import json
+
+
+@login_required
+def home(request):
+    return render(request, 'model/post_list.html')
+
+class SignUpView(CreateView):
+    template_name = 'model/signup.html'
+    form_class = UserCreationForm
+
+def validate_username(request):
+    username = request.GET.get('username', None)
+    data = {
+        'is_taken': User.objects.filter(username__iexact=username).exists()
+    }
+    if data['is_taken']:
+        data['error_message'] = 'A user with this username already exists.'
+    return JsonResponse(data)
 
 
 
 
+def change_rating(request):
+    # ajax POST request
+    thread_id = request.POST['thread_id'] #in URL
+    delta = int(request.POST['delta'])
+    t = Club.objects.get(id=thread_id)
+    t.likes += delta
+    t.save()
+
+    return HttpResponse(json.dumps({
+        'new_rating': t.likes,
+        }), mimetype='application/json') 
+
+
+@login_required
+def like_category(request):
+
+    cat_id = None
+    if request.method == 'GET':
+        cat_id = request.GET['club_id']
+
+    likes = 0
+    if cat_id:
+        cat = Club.objects.get(id=int(cat_id))
+        if cat:
+            likes = cat.likes + 1
+            cat.likes =  likes
+            cat.save()
+
+    return HttpResponse(likes)
 
 def post_list(request):
     posts = Club.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
@@ -37,6 +87,7 @@ def event_list(request):
         if form.cleaned_data["event_title"]:
             events = events.filter(title=form.cleaned_data["event_title"])
     return render(request, 'model/event_list.html', {'events': events, 'form': form })
+
 def club_detail(request, club_id):
     post = get_object_or_404(Club, id=club_id) #если объект найден, то вернет id в перем post
     
@@ -175,4 +226,7 @@ def user_logout(request):
     logout(request)
 
     # Перенаправляем пользователя обратно на главную страницу.
-    return HttpResponseRedirect('http://127.0.0.1:8000/')
+    return HttpResponseRedirect('http://127.0.0.1:3000/')
+
+
+

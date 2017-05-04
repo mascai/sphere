@@ -1,0 +1,21 @@
+.container_comment {
+    
+    display: flex;
+    justify-content: space-around;
+}
+.comment {
+        padding-left: 30px;
+	border-style: bold;
+        	
+	
+	
+}
+
+@media all and (max-width: 750px) {
+	.container_comment {
+	flex-direction: column;
+	}
+}
+
+
+

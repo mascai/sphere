@@ -11,13 +11,6 @@
         <form id="user_form" method="post" action="/model/register/"
                 enctype="multipart/form-data">{% csrf_token %}
 
-            <!-- Выводим на экран каждую форму. -->
-            <!--{% for field in user_form %}
-                <div>
-                    <h2><label class="control-label">{{ field.label}}</label></h2>
-                 <input type="text">  {{ field.label}} value="" aria-required="true" />
-            {% endfor %}
-            -->
 
             {{ user_form.as_p}}
             {{profile_form.as_p }}

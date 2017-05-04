@@ -5,6 +5,15 @@ from django.contrib.auth.models import User
 from model.models import Club, UserProfile, Comment, Like
 from django.utils import timezone
 
+
+
+class RegisterForm(forms.Form):
+    email = forms.EmailField()
+    password1 = forms.CharField(label=("Password"), widget=forms.PasswordInput)
+    password2 = forms.CharField(label=("Password confirmation"), widget=forms.PasswordInput)
+
+
+
 class LikeForm(forms.Form):
     model = Like
         

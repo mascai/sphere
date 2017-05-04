@@ -13,8 +13,12 @@ urlpatterns = [
     url(r'^model/event_list/$', views.event_list, name='event_list'),
     url(r'^(?P<club_id>\d+)/$', views.club_detail, name='post'),
     #url(r'^(?P<slug>S+)/addlike/$', add_like, name='add_like'), #slug - from view.py
+    url(r'^like_category/$', views.club_detail, name='club_detail'),
+    url(r'^change_rating/$', views.change_rating, name='change_rating'),
 
-
+    url(r'^signup/$', views.SignUpView.as_view(), name='signup'),
+    url(r'^ajax/validate_username/$', views.validate_username, name='validate_username'),
     #url(r'^model/club/$', views.user_logout, name='logout'),
-
+    url(r'^$', views.home, name='home'),
+    
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
